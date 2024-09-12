@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  width: 60%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  flex-direction: column;
+}
+
+
+.addressSection {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.addressDetails {
+  text-transform: capitalize;
+  flex: 2;
+}
+
+.changeBtn {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   border-left: 1px solid #ddd;
+}
+
+@media(max-width: 480px) {
+  .container {
+    width: 100%;
+  }
+}
+
+
+

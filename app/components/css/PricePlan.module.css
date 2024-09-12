@@ -1,0 +1,79 @@
+.card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  width: 100%;
+  cursor: pointer;
+  height: 50vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.body{
+  flex: 4;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: aqua;
+  color: white;
+}
+
+.header p {
+  color: white;
+}
+.footer{
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.tiername {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.limit,
+.ttl,
+.price {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.addButton {
+  background-color: #ffcc00;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.addButton:hover {
+  background-color: #ffc107;
+}

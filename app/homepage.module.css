@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.navbarContainer {
+  flex: 1;
+  overflow: hidden;
+}
+
+.productListContainer {
+  flex: 3;
+  margin-top: 30%;
+}

@@ -1,0 +1,185 @@
+.card {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  min-height: 200px;
+  max-height: 200px;
+  margin-bottom: 10px;
+  width: 100%;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+.validityText {
+  font-style: italic;
+  color: grey;
+}
+
+
+.leftSide {
+  display: flex;
+  flex: 2;
+  background-color: #f8f9fa;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: 1.5em;
+  color: #343a40;
+}
+
+.provider {
+  position: absolute;
+  color: white;
+  top: 0;
+  left: 0;
+  text-justify: left;
+  text-transform: capitalize;
+  letter-spacing: .05rem;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #b79347;
+  padding: 5px;
+  width: 50%;
+  border-bottom-right-radius: 15px;
+}
+
+.simNumber {
+  font-weight: bold;
+}
+
+.middleSide {
+  flex: 3; /* Increase flex value to take more space */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rightSide {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.price {
+  font-size: 1.5em; /* Bigger font size for price */
+  color: #b79347; /* Gold color for price */
+  margin-bottom: 10px;
+}
+
+.validity {
+  font-size: 1em;
+  color: #343a40;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 0.9em;
+  color: #6c757d;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Limit to 4 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+@media (max-width: 768px) {
+  .card {
+    flex-direction: row;
+    height: auto;
+    min-height: auto;
+    max-height: none;
+  }
+  
+  .leftSide,
+  .rightSide {
+    padding: 10px;
+    font-size: 1.2em;
+  }
+  
+  .middleSide {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+  
+  .price {
+    font-size: 1.3em;
+  }
+  
+  .validity,
+  .description {
+    font-size: 0.9em;
+  }
+
+  .provider {
+    position: absolute;
+    color: white;
+    top: 0;
+    left: 0;
+    text-justify: left;
+    font-size: 0.7rem;
+    font-weight: bold;
+    background-color: #b79347;
+    padding: 5px;
+    width: 70%;
+    border-bottom-right-radius: 13px;
+  }
+  
+
+}
+
+@media (max-width: 480px) {
+
+  .card {
+    margin-left: 1px;
+    margin-right: 1px;
+    height: 110px;
+  }
+  .leftSide,
+  .rightSide {
+    padding: 4px;
+    font-size: 0.6em;
+  }
+  
+  .middleSide {
+    padding: 4px;
+    font-size: 0.8em;
+  }
+  
+  .price {
+    font-size: 1.1em;
+  }
+  
+  .validity,
+  .description {
+    font-size: 0.6em;
+  }
+  
+
+
+  .provider {
+    position: absolute;
+    color: white;
+    top: 0;
+    left: 0;
+    text-justify: left;
+    font-size: 0.7rem;
+    font-weight: bold;
+    background-color: #b79347;
+    padding: 5px;
+    width: 70%;
+    border-bottom-right-radius: 13px;
+  }
+
+  .simNumber {
+    font-size: 0.8rem;
+  }
+}
