@@ -1,0 +1,121 @@
+.card {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  border: 1px solid #e0e0e0;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  background-color: #fff;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  max-width: 100%; /* Ensure the card fits within the screen width */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column; /* Stack plan name and expiry vertically */
+  margin-right: 16px;
+  flex: 1; /* Allow this section to take up remaining space */
+  text-align: left;
+}
+
+.planName {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.expiryDate {
+  font-size: 14px;
+  color: #666;
+}
+
+.middleSide {
+  display: flex;
+  align-items: center;
+  flex: 2; /* Allow this section to be larger */
+  width: 100%; /* Full width for middle section */
+}
+
+.apiKeyContainer {
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1; /* Slightly darker background */
+  border-radius: 4px;
+  overflow: hidden; /* Ensure the visibility icon does not overflow */
+  width: 100%; /* Full width for API key container */
+}
+
+.apiKey {
+  font-size: 16px;
+  font-family: monospace;
+  border: none; /* Remove the border */
+  padding: 8px;
+  width: 100%; /* Full width within its container */
+  text-align: left; /* Align text to the left */
+  background-color: #f1f1f1; /* Slightly darker background */
+  color: #333;
+  box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  padding: 0 8px; /* Space around the icon */
+}
+
+.icon {
+  cursor: pointer;
+  color: #d4af37; /* Gold color */
+  font-size: 24px; /* Increased icon size */
+}
+
+.rightSide {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+}
+
+.copyButton {
+  background-color: #d4af37; /* Gold color */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.copyButton:hover {
+  background-color: #bfa133; /* Darker shade of gold */
+}
+
+.copyButton:active {
+  background-color: #a6882c; /* Even darker shade */
+}
+
+@media (max-width: 600px) {
+  .card {
+    flex-direction: column; /* Stack items vertically on small screens */
+  }
+
+  .leftSide, .middleSide, .rightSide {
+    width: 100%; /* Full width for all sections on small screens */
+    text-align: center;
+    margin: 8px 0; /* Margin between sections */
+  }
+
+  .apiKey {
+    width: 100%; /* Full width for the input field on small screens */
+  }
+
+  .icon {
+    font-size: 20px; /* Adjust icon size for smaller screens */
+  }
+
+  .copyButton {
+    width: 100%; /* Full width for the button on small screens */
+    margin-top: 8px; /* Space between the button and other elements */
+  }
+}

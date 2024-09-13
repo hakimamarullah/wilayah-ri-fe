@@ -1,0 +1,107 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+}
+
+.planLabel,
+.orderLabel {
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.planName {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.orderId {
+  font-size: 14px;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.rightSide {
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 16px;
+}
+
+.payButton {
+  background-color: #d4af37; /* Gold color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.payButton:hover {
+  background-color: #bfa133; /* Darker shade of gold */
+}
+
+.payButton:active {
+  background-color: #a6882c; /* Even darker shade */
+}
+
+/* Media query for small screens */
+@media (max-width: 600px) {
+  .card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rightSide {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+
+  .price {
+    font-size: 16px;
+    margin-right: 0;
+  }
+
+  .payButton {
+    font-size: 14px;
+    padding: 8px 16px;
+    width: 100px; /* Ensuring the button is not too wide on small screens */
+  }
+
+  .planName {
+    font-size: 16px;
+  }
+
+  .orderId {
+    font-size: 12px;
+  }
+
+  .planLabel, .orderLabel {
+    font-size: 10px;
+  }
+}

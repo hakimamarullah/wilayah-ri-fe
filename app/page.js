@@ -1,10 +1,9 @@
 import { auth } from "@/auth";
 import { Container } from "@mui/material";
 import Navbar from "./components/Navbar";
-import ProductList from "./components/ProductList";
 import { getUserInfo } from "./lib/auth_api";
 import { getAvailableProducts } from "./lib/product_api";
-import { doLogout } from "./actions";
+import ApiKeyList from "./components/ApiKeyCardList";
 
 export default async function Home() {
   let session = await auth();
@@ -29,11 +28,7 @@ export default async function Home() {
   return (
     <Container sx={{ mt: 15, mb: "100vh" }} maxWidth="md">
       <Navbar username={session?.user?.username} />
-      <ProductList
-        initialProducts={products}
-        size={SIZE_PER_PAGE}
-        accessToken={session?.user?.accessToken}
-      />
+      <ApiKeyList/>
     </Container>
   );
 }

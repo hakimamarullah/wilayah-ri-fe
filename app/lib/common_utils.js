@@ -1,10 +1,14 @@
 export const formatPrice = (price) => {
+  // Format the price using Indonesian locale and currency
   const formattedPrice = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
   }).format(price);
+
+  // Replace the comma with a dot and remove spaces
   return formattedPrice.replace(/\s/g, "");
 };
+
 
 export const formatSimNumber = (simNumber) => {
   return simNumber.replace(/(\d{4})(?=\d)/g, "$1-");

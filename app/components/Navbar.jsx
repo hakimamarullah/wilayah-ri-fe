@@ -74,7 +74,7 @@ const Navbar = ({ username }) => {
                 textDecoration: "none",
               }}
             >
-              PrettyDigits
+              WilayahRI
             </Typography>
             <WifiTetheringErrorTwoToneIcon
               sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
@@ -96,7 +96,7 @@ const Navbar = ({ username }) => {
                 textDecoration: "none",
               }}
             >
-              PrettyDigits
+              WilayahRI
             </Typography>
           </Box>
 

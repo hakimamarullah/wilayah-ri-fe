@@ -6,8 +6,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "PrettyDigits App",
-  description: "Find your pretty number",
+  title: "Wilayah RI API Dashboard",
+  description: "Manage your API Key",
 };
 
 export default function RootLayout({ children  }) {
