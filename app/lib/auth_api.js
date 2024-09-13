@@ -11,7 +11,8 @@ export const signUp = async (formData) => {
 };
 
 export const postSignIn = async (credentials) => {
-  return postJson({uri: "/auth/login", body: credentials});
+  //return postJson({uri: "/auth/login", body: credentials});
+  return {responseCode: 200, responseData: {username: 'ferika', accessToken: 'adadq3erdwqrd2wr'}}
 };
 
 export const postJson = async ({ uri, body, headers }) => {

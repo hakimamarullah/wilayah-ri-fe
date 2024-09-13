@@ -53,7 +53,7 @@ export default function MenuDrawer({ state, toggleDrawer, username }) {
           <List>
             {[
               {
-                name: "Plan",
+                name: "Plans",
                 icon: <LocalMallOutlinedIcon />,
                 target: "/plans",
               },
