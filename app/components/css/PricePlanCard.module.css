@@ -1,0 +1,106 @@
+/* components/PricePlanCard.module.css */
+
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+  max-width: 100%;
+  width: 300px;
+  margin: 10px;
+  border: 1px solid #e0e0e0; /* Light grey border for subtle definition */
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.header {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0; /* Light grey border for separation */
+}
+
+.tiername {
+  font-size: 1.4rem;
+  margin: 0;
+  color: #333;
+  font-weight: 500;
+}
+
+.body {
+  padding: 20px;
+}
+
+.limit {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.footer {
+  padding: 20px;
+  text-align: center;
+}
+
+.price {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.addButton {
+  background-color: #d4af37; /* Gold button background */
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 500;
+}
+
+.addButton:hover {
+  background-color: #b89e28; /* Slightly darker gold on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .card {
+    width: calc(100% - 20px); /* Adjust width for better fit on smaller screens */
+    margin: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: calc(100% - 20px); /* Full width with margin */
+    margin: 5px;
+  }
+
+  .tiername {
+    font-size: 1.2rem;
+  }
+
+  .limit, .description {
+    font-size: 0.85rem;
+  }
+
+  .price {
+    font-size: 1.1rem;
+  }
+
+  .addButton {
+    font-size: 0.85rem;
+    padding: 8px 16px;
+  }
+}
