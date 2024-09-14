@@ -2,13 +2,13 @@ import axios from 'axios';
 
 
 // Function to get base URL
-const getBaseUrl = () => {
-  return process.env.BASE_BE_URL || "http://localhost:9099/api-key-management-service";
+const getApiKeyManagerBaseUrl = () => {
+  return process.env.NEXT_PUBLIC_API_KEY_MANAGER_URL;
 };
 
 // Axios instance with a default timeout
 const axiosInstance = axios.create({
-  baseURL: getBaseUrl(),
+  baseURL: getApiKeyManagerBaseUrl(),
   timeout: 5000, // Set timeout here (in milliseconds)
 });
 
