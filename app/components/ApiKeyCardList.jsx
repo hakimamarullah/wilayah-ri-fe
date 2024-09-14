@@ -18,7 +18,7 @@ const ApiKeyList = ({ session }) => {
     let isSubscribed = true;
     const fetchApiKeys = async () => {
       try {
-        const { responseCode, responseData } = await getActivePlans(accessToken);
+        const { responseData } = await getActivePlans(accessToken);
         if (isSubscribed) {
           setApiKeys(responseData);
         }
@@ -49,7 +49,7 @@ const ApiKeyList = ({ session }) => {
 
       {error ? (
         <div>Failed Fetching Data</div>
-      ) : apiKeys.length === 0 ? (
+      ) : apiKeys?.length === 0 ? (
         <div>You Have No Active Plans</div>
       ) : (
         apiKeys.map((keyData, index) => (
