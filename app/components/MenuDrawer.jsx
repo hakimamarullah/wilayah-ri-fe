@@ -52,6 +52,11 @@ export default function MenuDrawer({ state, toggleDrawer, username }) {
         <>
           <List>
             {[
+               {
+                name: "My Plans",
+                icon: <LocalMallOutlinedIcon />,
+                target: "/myplans",
+              },
               {
                 name: "Plans",
                 icon: <LocalMallOutlinedIcon />,
@@ -84,7 +89,7 @@ export default function MenuDrawer({ state, toggleDrawer, username }) {
           <Divider />
           <List>
             <ListItem key={"signout"} disablePadding>
-              <ListItemButton onClick={async () => await doLogout()}>
+              <ListItemButton onClick={async () => await doLogout('/')}>
                 <ListItemIcon>
                   <ExitToAppOutlinedIcon />
                 </ListItemIcon>

@@ -1,4 +1,19 @@
+import axios from 'axios';
 
+// Define the base URL function
+const getBaseUrl = () => {
+  return process.env.BASE_BE_URL || "http://localhost:9099/auth-service";
+};
+
+// Create an axios instance with default settings
+const axiosInstance = axios.create({
+  baseURL: getBaseUrl(),  // Use the getBaseUrl function for base URL
+  timeout: 5000,         // Timeout in milliseconds (10 seconds)
+});
+
+
+
+// Function to sign up a user
 export const signUp = async (formData) => {
   const requestBody = {
     email: formData.get("email"),
@@ -7,38 +22,29 @@ export const signUp = async (formData) => {
     roleIds: JSON.parse(formData.get("roleIds")),
   };
 
-  return postJson({uri: "/auth/register", body: requestBody})
+  return postJson({ uri: "/auth/register", body: requestBody });
 };
 
+// Function to sign in a user
 export const postSignIn = async (credentials) => {
-  //return postJson({uri: "/auth/login", body: credentials});
-  return {responseCode: 200, responseData: {username: 'ferika', accessToken: 'adadq3erdwqrd2wr'}}
+  return postJson({ uri: "/auth/login", body: credentials });
 };
 
+// Function to post JSON data
 export const postJson = async ({ uri, body, headers }) => {
-  const response = await fetch(`${getBaseUrl()}${uri}`, {
-    method: "POST",
-    body: JSON.stringify(body),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-      ...headers,
-    },
-  });
-
-  const responseBody = await response.json();
-  console.log({responseBody})
-  return responseBody;
-};
-
-export const getUserInfo = (accessToken) => {
-   return fetch(`${getBaseUrl()}/auth/userInfo`, {
-     headers: {
-       Authorization: `Bearer ${accessToken}`
-     }
-   }).then(res => res.json())
-    .catch(err => null)
-}
-
-const getBaseUrl = () => {
-  return process.env.BASE_BE_URL || "http://auth-service-dev.local";
+  try {
+    const response = await axiosInstance.post(uri, body, {
+      headers: {
+        "Content-Type": "application/json",
+        ...headers,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    const data = error.response?.data;
+    if (data) {
+      return data;
+    }
+    throw error;
+  }
 };

@@ -2,22 +2,21 @@
 import { HomeOutlined } from "@mui/icons-material";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import ReportIcon from "@mui/icons-material/Report";
-import { Backdrop, CircularProgress } from "@mui/material";
+import { Backdrop, CircularProgress, IconButton, TextField } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { doCredentialLogin } from "../actions";
 import { postSignIn } from "../lib/auth_api";
 import AppAlert from "./AppAlert";
+import PasswordField from "./PasswordField"; // Import the new PasswordField component
 
 export default function SignInForm({ session }) {
   const [errors, setErrors] = React.useState({});
@@ -25,11 +24,11 @@ export default function SignInForm({ session }) {
   const [error, setUnexpectedError] = React.useState(false);
   const router = useRouter();
 
-  const redirectToHomepage = () => {
-    router.push("/");
+  const redirectToMyPlans = () => {
+    router.push("/myplans");
   };
 
-  if (session) redirectToHomepage();
+  if (session) redirectToMyPlans();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -46,7 +45,7 @@ export default function SignInForm({ session }) {
 
       if (responseCode === 200) {
         await doCredentialLogin(responseData);
-        redirectToHomepage();
+        redirectToMyPlans();
       } else if (responseCode === 401) {
         setErrors({
           username: "invalid credential",
@@ -65,6 +64,16 @@ export default function SignInForm({ session }) {
     }
   };
 
+  React.useEffect(() => {
+    let timer;
+    if (error) {
+      timer = setTimeout(() => {
+        setUnexpectedError(false);
+      }, 3000); // Close the alert after 3 seconds
+    }
+    return () => clearTimeout(timer); // Clean up the timer on unmount
+  }, [error]);
+
   return (
     <Container
       component="main"
@@ -73,7 +82,6 @@ export default function SignInForm({ session }) {
     >
       {session ? null : (
         <>
-          {" "}
           <Backdrop
             sx={{ color: "#fff", zIndex: 9999, position: "absolute" }}
             open={isLoading}
@@ -133,18 +141,12 @@ export default function SignInForm({ session }) {
                 inputProps={{ autoComplete: "off" }}
               />
 
-              <TextField
-                margin="normal"
-                required
-                fullWidth
+              <PasswordField
+                id="password"
                 name="password"
                 label="Password"
-                type="password"
-                id="password"
                 error={!!errors.password}
                 helperText={errors.password ? errors.password : ""}
-                autoComplete="current-password"
-                inputProps={{ autoComplete: "off" }}
               />
 
               <Button

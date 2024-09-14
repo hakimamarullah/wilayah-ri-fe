@@ -7,7 +7,7 @@ const SignUpPage = async () => {
   const session = await auth();
  
   return (
-    <Container maxWidth="xl" sx={{overflowY: 'hidden'}}>
+    <Container maxWidth="xl" sx={{overflowY: 'hidden', minHeight: '100vh'}}>
       <SignUpForm session={session}/>
     </Container>
   );

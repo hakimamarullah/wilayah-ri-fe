@@ -1,0 +1,195 @@
+/* LandingPage.module.css */
+@keyframes twinkle {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.3; }
+}
+
+@keyframes cardAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes snowfall {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  text-align: center;
+  background: #000; /* Dark background for snow effect */
+  overflow: hidden;
+  padding: 4rem 2rem;
+  color: #fff; /* White text for contrast */
+}
+
+.backgroundStars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, transparent 20%) repeat;
+  background-size: 3px 3px;
+  z-index: -1;
+  animation: twinkle 2s infinite ease-in-out;
+}
+
+.snowflakes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.snowflake {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: snowfall linear;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #ffd700; /* Gold color */
+  margin-bottom: 1.5rem;
+  line-height: 1.2; /* Better line spacing */
+}
+
+.description {
+  font-size: 1.5rem;
+  color: #ddd; /* Light gray text for better contrast */
+  margin-bottom: 2.5rem;
+  max-width: 800px;
+  line-height: 1.6; /* Improve readability */
+}
+
+.button {
+  background-color: #ffd700; /* Gold color */
+  color: #000; /* Black text for contrast */
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px; /* Rounded corners */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-transform: uppercase; /* Uppercase text */
+}
+
+.button:hover {
+  background-color: #e5c100; /* Slightly darker gold */
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.cardsSection {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 3rem;
+  padding: 0 2rem;
+  gap: 2rem;
+}
+
+.card {
+  background: #333; /* Dark card background */
+  color: #fff; /* White text */
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  width: 300px;
+  text-align: center;
+  opacity: 0;
+  animation: cardAnimation 1.5s ease-out forwards; /* Slower card animation */
+}
+
+.card:nth-child(1) {
+  animation-delay: 0.4s; /* Staggered animation */
+}
+
+.card:nth-child(2) {
+  animation-delay: 0.8s;
+}
+
+.card:nth-child(3) {
+  animation-delay: 1.2s;
+}
+
+.cardIcon {
+  font-size: 3rem;
+  color: #ffd700; /* Gold color */
+  margin-bottom: 1rem;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.cardDescription {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 3rem;
+  }
+
+  .description {
+    font-size: 1.25rem;
+  }
+
+  .button {
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .cardsSection {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .button {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}
