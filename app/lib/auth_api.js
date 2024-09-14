@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 // Define the base URL function
-const getBaseUrl = () => {
-  return process.env.BASE_BE_URL || "http://localhost:9099/auth-service";
+const getAuthBaseUrl = () => {
+  return process.env.NEXT_PUBLIC_AUTH_SERVICE_URL;
 };
 
 // Create an axios instance with default settings
 const axiosInstance = axios.create({
-  baseURL: getBaseUrl(),  // Use the getBaseUrl function for base URL
+  baseURL: getAuthBaseUrl(),  // Use the getBaseUrl function for base URL
   timeout: 5000,         // Timeout in milliseconds (10 seconds)
 });
 
