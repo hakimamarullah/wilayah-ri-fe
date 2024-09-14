@@ -10,6 +10,9 @@ const getApiKeyManagerBaseUrl = () => {
 const axiosInstance = axios.create({
   baseURL: getApiKeyManagerBaseUrl(),
   timeout: 5000, // Set timeout here (in milliseconds)
+  headers: {
+    "ngrok-skip-browser-warning": "69420"
+  }
 });
 
 // Function to get active plans

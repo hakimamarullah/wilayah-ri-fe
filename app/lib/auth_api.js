@@ -9,6 +9,9 @@ const getAuthBaseUrl = () => {
 const axiosInstance = axios.create({
   baseURL: getAuthBaseUrl(),  // Use the getBaseUrl function for base URL
   timeout: 5000,         // Timeout in milliseconds (10 seconds)
+  headers: {
+    "ngrok-skip-browser-warning": "69420"
+  }
 });
 
 
