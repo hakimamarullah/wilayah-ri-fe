@@ -2,9 +2,7 @@
 import { HomeOutlined } from "@mui/icons-material";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import ReportIcon from "@mui/icons-material/Report";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Backdrop, CircularProgress, IconButton, InputAdornment, TextField } from "@mui/material";
+import { Backdrop, CircularProgress, IconButton, TextField } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -18,13 +16,12 @@ import * as React from "react";
 import { doCredentialLogin } from "../actions";
 import { postSignIn } from "../lib/auth_api";
 import AppAlert from "./AppAlert";
+import PasswordField from "./PasswordField"; // Import the new PasswordField component
 
 export default function SignInForm({ session }) {
   const [errors, setErrors] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setUnexpectedError] = React.useState(false);
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [showPasswordTimer, setShowPasswordTimer] = React.useState(null);
   const router = useRouter();
 
   const redirectToMyPlans = () => {
@@ -66,26 +63,6 @@ export default function SignInForm({ session }) {
       setIsLoading(false);
     }
   };
-
-  const handleClickShowPassword = () => {
-    setShowPassword(true);
-    if (showPasswordTimer) {
-      clearTimeout(showPasswordTimer);
-    }
-    setShowPasswordTimer(setTimeout(() => {
-      setShowPassword(false);
-    }, 3000)); // Auto-hide password after 3 seconds
-  };
-
-  const handleMouseDownPassword = (event) => event.preventDefault();
-
-  React.useEffect(() => {
-    return () => {
-      if (showPasswordTimer) {
-        clearTimeout(showPasswordTimer);
-      }
-    };
-  }, [showPasswordTimer]);
 
   React.useEffect(() => {
     let timer;
@@ -164,32 +141,12 @@ export default function SignInForm({ session }) {
                 inputProps={{ autoComplete: "off" }}
               />
 
-              <TextField
-                margin="normal"
-                required
-                fullWidth
+              <PasswordField
+                id="password"
                 name="password"
                 label="Password"
-                type={showPassword ? "text" : "password"}
-                id="password"
                 error={!!errors.password}
                 helperText={errors.password ? errors.password : ""}
-                autoComplete="current-password"
-                inputProps={{ autoComplete: "off" }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
               />
 
               <Button

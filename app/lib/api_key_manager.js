@@ -39,7 +39,10 @@ export const postJson = async ({ uri, body, headers }) => {
     console.log('Post response:', response.data);
     return response.data;
   } catch (error) {
-    console.error('Error posting JSON data:', error);
+    const data = error.response?.data;
+    if (data) {
+      return data;
+    }
     throw error;
   }
 };
@@ -56,7 +59,10 @@ export const get = async ({ uri, headers }) => {
     console.log('Get response:', response.data);
     return response.data;
   } catch (error) {
-    console.error('Error getting data:', error);
+    const data = error.response?.data;
+    if (data) {
+      return data;
+    }
     throw error;
   }
 };

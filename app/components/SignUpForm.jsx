@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import * as React from "react";
 import { signUp } from "../lib/auth_api";
 import AppAlert from "./AppAlert";
+import PasswordField from "./PasswordField";
 
 export default function SignUpForm({ session }) {
   const [errors, setErrors] = React.useState({});
@@ -25,7 +26,10 @@ export default function SignUpForm({ session }) {
   const router = useRouter();
 
   if (session) router.replace("/");
-  
+
+
+  const isPasswordMatch = (password, confirmPassword) =>  password === confirmPassword;
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors({});
@@ -33,9 +37,13 @@ export default function SignUpForm({ session }) {
     data.set("roleIds", JSON.stringify([2]));
 
     try {
+      if (!isPasswordMatch(data.get("password"), data.get("confirm_password"))) {
+        setErrors({ password: 'Password does not match' });
+        return;
+      }
       setIsLoading(true);
       const { responseCode, responseData } = await signUp(data);
-   
+
       switch (responseCode) {
         case 400:
           setErrors(responseData);
@@ -55,7 +63,7 @@ export default function SignUpForm({ session }) {
           break;
       }
     } catch (error) {
-      console.log({error})
+      console.log({ fuck: error?.response?.data });
       setUnexpectedError(true);
     } finally {
       setIsLoading(false);
@@ -139,18 +147,20 @@ export default function SignUpForm({ session }) {
                 helperText={errors.phone ? errors.phone : ""}
                 autoFocus
               />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
+              <PasswordField
+                id="password"
                 name="password"
                 label="Password"
-                type="password"
-                id="password"
                 error={!!errors.password}
                 helperText={errors.password ? errors.password : ""}
-                autoComplete="new-password"
-                inputProps={{ autoComplete: "off" }}
+              />
+
+              <PasswordField
+                id="confirm_password"
+                name="confirm_password"
+                label="Confirm Password"
+                error={!!errors.password}
+                helperText={errors.password ? errors.password : ""}
               />
 
               <Button

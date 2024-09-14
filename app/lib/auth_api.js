@@ -41,7 +41,10 @@ export const postJson = async ({ uri, body, headers }) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error posting JSON:", error);
+    const data = error.response?.data;
+    if (data) {
+      return data;
+    }
     throw error;
   }
 };
