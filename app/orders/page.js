@@ -11,7 +11,7 @@ const Orders = () => {
         pt: 15, 
         pr: 1, 
         pl: 1, 
-        minHeight: '60vh',
+        minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center', // Center the content horizontally
@@ -21,6 +21,7 @@ const Orders = () => {
       <Box 
         sx={{ 
           display: 'flex',
+          color: '#333',
           flexDirection: 'column', // Stack title and list vertically
           width: {
             xs: '100%', // Full width on extra-small screens

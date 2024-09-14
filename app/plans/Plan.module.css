@@ -1,0 +1,61 @@
+/* Container styling */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 0 20px; /* Default padding for larger screens */
+}
+
+/* Adjust padding for smaller screens */
+@media (max-width: 600px) {
+  .container {
+    padding: 0 8px; /* Reduced padding for smaller screens */
+  }
+}
+
+/* Title box styling */
+.titleBox {
+  text-align: center;
+  max-width: 1200px;
+  margin-top: 20px; /* Ensure there's space above the title */
+  margin-bottom: 16px; /* Ensure there's space below */
+  position: relative;
+}
+
+/* Title styling */
+.title {
+  display: inline-block;
+  margin-top: 100px;
+  position: relative;
+  font-size: 2rem; /* Ensure the font size is large enough */
+  color: #333; /* Adjust color for better visibility */
+}
+
+/* Underline styling */
+.title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px; /* Move the line closer to the text */
+  width: 100%;
+  height: 2px;
+  background-color: #d4af37; /* Gold underline */
+  transform: translateX(-50%);
+}
+
+/* List box styling */
+.listBox {
+  width: 100%;
+  max-width: 1200px; /* Set a maximum width */
+  padding: 0 16px; /* Default padding for larger screens */
+  margin-top: 24px; /* Ensure there's space above the list */
+}
+
+/* Adjust padding for smaller screens */
+@media (max-width: 600px) {
+  .listBox {
+    padding: 0 8px; /* Reduced padding for smaller screens */
+  }
+}

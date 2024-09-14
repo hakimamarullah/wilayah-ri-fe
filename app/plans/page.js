@@ -2,6 +2,8 @@ import { Container, Typography, Box } from "@mui/material";
 import React from "react";
 import Navbar from "../components/Navbar";
 import PricePlanList from "../components/PricePlanList";
+import { auth } from "@/auth";
+import styles from './Plan.module.css'; // Import CSS module
 
 const pricePlans = [
   {
@@ -27,70 +29,27 @@ const pricePlans = [
   },
 ];
 
-const Plans = () => {
+const Plans = async () => {
+  const session = await auth();
   return (
     <Container 
       maxWidth="xl" 
-      sx={{ 
-        pt: 15, 
-        pr: 1, 
-        pl: 1, 
-        minHeight: '50vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
+      className={styles.container} // Apply CSS Module class
     >
-      <Navbar username={'ferika'} />
+      <Navbar username={session?.user?.username} />
       <Box 
-        sx={{ 
-          textAlign: {
-            xs: 'center', // Center text on extra-small screens
-            sm: 'center', // Center text on small screens
-            md: 'center'  // Center text on medium screens and up
-          },
-          mb: 4,
-          width: {
-            xs: '100%', // Full width on extra-small screens
-            sm: '80%',  // 80% width on small screens
-            md: '70%',  // 70% width on medium screens
-            lg: '60%',  // 60% width on large screens
-            xl: '50%'   // 50% width on extra-large screens
-          },
-          maxWidth: '1200px', // Optional: Set a maximum width
-        }}
+        className={styles.titleBox} // Apply CSS Module class
       >
         <Typography 
           variant="h4" 
           component="h1" 
-          sx={{ 
-            display: 'inline-block',
-            position: 'relative',
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              left: '50%',
-              bottom: -5,
-              width: '100%',
-              height: 2,
-              backgroundColor: '#d4af37', /* Gold underline */
-              transform: 'translateX(-50%)',
-            }
-          }}
+          className={styles.title} // Apply CSS Module class
         >
           API Tier Plans
         </Typography>
       </Box>
       <Box 
-        sx={{ 
-          width: '100%', 
-          p: 0, 
-          mt: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
+        className={styles.listBox} // Apply CSS Module class
       >
         <PricePlanList plans={pricePlans} />
       </Box>

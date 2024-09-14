@@ -1,37 +1,77 @@
-"use client"
-import React from 'react';
+"use client";
+import React, { useEffect, useState } from 'react';
 import ApiKeyCard from './ApiKeyCard';
+import { getActivePlans } from '../lib/api_key_manager';
+import { Backdrop, CircularProgress } from '@mui/material';
+import AppAlert from './AppAlert';
+import ReportIcon from "@mui/icons-material/Report";
 
+const ApiKeyList = ({ session }) => {
+  const { user } = session ?? {};
+  const { accessToken } = user ?? {};
+  const [apiKeys, setApiKeys] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [alert, setAlert] = useState(false);
 
-const apiKeys = [
-  {
-    planName: "Basic Plan",
-    apiKey: "abcd1234efgh5678ijkl9012mnop3456",
-    expiryDate: "2024-09-30"
-  },
-  {
-    planName: "Standard Plan",
-    apiKey: "ijkl5678mnop9012abcd3456efgh1234",
-    expiryDate: "2024-10-15"
-  },
-  {
-    planName: "Premium Plan",
-    apiKey: "mnop9012abcd1234efgh5678ijkl3456",
-    expiryDate: "2024-12-31"
-  }
-];
+  useEffect(() => {
+    let isSubscribed = true;
+    const fetchApiKeys = async () => {
+      try {
+        const { responseCode, responseData } = await getActivePlans(accessToken);
+        if (isSubscribed) {
+          setApiKeys(responseData);
+        }
+      } catch (error) {
+        if (isSubscribed) {
+          setError(true); // Set error state to true
+          setAlert(true);
+        }
+      } finally {
+        if (isSubscribed) {
+          setLoading(false);
+        }
+      }
+    };
 
-const ApiKeyList = () => {
+    fetchApiKeys();
+    return () => (isSubscribed = false);
+  }, [accessToken]);
+
   return (
     <div>
-      {apiKeys.map((keyData, index) => (
-        <ApiKeyCard
-          key={index}
-          planName={keyData.planName}
-          apiKey={keyData.apiKey}
-          expiryDate={keyData.expiryDate}
+      <Backdrop
+        sx={{ color: "#fff", zIndex: 9999, position: "absolute" }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
+      {error ? (
+        <div>Failed Fetching Data</div>
+      ) : apiKeys.length === 0 ? (
+        <div>You Have No Active Plans</div>
+      ) : (
+        apiKeys.map((keyData, index) => (
+          <ApiKeyCard
+            key={index}
+            planName={keyData.planName}
+            apiKey={keyData.apiKey}
+            expiryDate={keyData.expiryDate}
+          />
+        ))
+      )}
+
+      {error && (
+        <AppAlert
+          title={"Application Error"}
+          color="danger"
+          message="Something went wrong. Please try again later!"
+          show={alert}
+          handleClose={() => setAlert(false)}
+          icon={<ReportIcon />}
         />
-      ))}
+      )}
     </div>
   );
 };
