@@ -25,6 +25,18 @@ export const purchaseApiKey = async (payload, userToken) => {
   })
 }
 
+export const getPendingTransactions = async (userToken) => {
+  return await postJson({
+    uri: '/payment/transactions/users/me',
+    body: {
+      paymentStatus: 'PENDING'
+    },
+    headers: {
+      Authorization: `Bearer ${userToken}`
+    }
+  })
+}
+
 // Function to post JSON data
 export const postJson = async ({ uri, body, headers }) => {
   try {

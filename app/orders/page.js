@@ -2,8 +2,10 @@ import { Container, Typography, Box } from "@mui/material";
 import React from "react";
 import TransactionsList from "../components/TransactionList";
 import Navbar from "../components/Navbar";
+import { auth } from "@/auth";
 
-const Orders = () => {
+const Orders = async () => {
+  const session = await auth();
   return (
     <Container 
       maxWidth="xl" 
@@ -17,7 +19,7 @@ const Orders = () => {
         alignItems: 'center', // Center the content horizontally
       }}
     >
-      <Navbar username={'ferika'} />
+      <Navbar username={session?.user?.username} />
       <Box 
         sx={{ 
           display: 'flex',
@@ -76,7 +78,7 @@ const Orders = () => {
             mt: 2, // Add margin-top if needed
           }}
         >
-          <TransactionsList />
+          {session?.user?.username && <TransactionsList session={session} />}
         </Box>
       </Box>
     </Container>
