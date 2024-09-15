@@ -55,9 +55,9 @@ const ApiKeyList = ({ session }) => {
         apiKeys.map((keyData, index) => (
           <ApiKeyCard
             key={index}
-            planName={keyData.planName}
+            planName={keyData.tierName}
             apiKey={keyData.apiKey}
-            expiryDate={keyData.expiryDate}
+            expiryDate={keyData.expiredAt}
           />
         ))
       )}

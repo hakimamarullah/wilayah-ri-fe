@@ -1,14 +1,12 @@
 // components/PricePlanCard.js
-
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import styles from "./css/PricePlanCard.module.css";
+import { PayButton } from "./PayButton";
+import { formatPrice } from "../lib/common_utils";
 
-const PricePlanCard = ({ tiername, limit, ttl, price, description, onAddToCart }) => {
+const PricePlanCard = ({ tierId, tiername, limit, ttl, price, description, userToken, setSuccess, setLoading, setError }) => {
   const ttlInDays = Math.floor(ttl / (1000 * 60 * 60 * 24)); // Convert millis to days
-  const formattedPrice = new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-  }).format(price);
 
   return (
     <div className={styles.card}>
@@ -20,10 +18,8 @@ const PricePlanCard = ({ tiername, limit, ttl, price, description, onAddToCart }
         <p className={styles.description}>{description}</p>
       </div>
       <div className={styles.footer}>
-        <p className={styles.price}>{formattedPrice}</p>
-        <button className={styles.addButton} onClick={onAddToCart}>
-          Buy Now
-        </button>
+        <p className={styles.price}>{formatPrice(price)}</p>
+        <PayButton name="Buy" tierId={tierId} userToken={userToken} setError={setError} setSuccess={setSuccess} setLoading={setLoading}/>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import styles from './css/ApiKeyCard.module.css';
+import { formatDate } from '../lib/common_utils';
 
 const ApiKeyCard = ({ planName, apiKey, expiryDate }) => {
   const [isKeyVisible, setIsKeyVisible] = useState(false);
@@ -19,7 +20,7 @@ const ApiKeyCard = ({ planName, apiKey, expiryDate }) => {
     <div className={styles.card}>
       <div className={styles.leftSide}>
         <div className={styles.planName}>{planName}</div>
-        <div className={styles.expiryDate}>Expiry: {new Date(expiryDate).toLocaleDateString()}</div>
+        <div className={styles.expiryDate}>Expiry: {formatDate(expiryDate)}</div>
       </div>
       <div className={styles.middleSide}>
         <div className={styles.apiKeyContainer}>
