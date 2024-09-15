@@ -1,33 +1,29 @@
 import axios from "axios";
 
 // Function to get base URL
-const getApiKeyManagerBaseUrl = () => {
-  return process.env.NEXT_PUBLIC_API_KEY_MANAGER_URL;
+const getPaymentServiceBaseUrl = () => {
+  return process.env.NEXT_PUBLIC_PAYMENT_SERVICE_URL;
 };
 
 // Axios instance with a default timeout
 const axiosInstance = axios.create({
-  baseURL: getApiKeyManagerBaseUrl(),
+  baseURL: getPaymentServiceBaseUrl(),
   timeout: 5000, // Set timeout here (in milliseconds)
   headers: {
     "ngrok-skip-browser-warning": "69420",
   },
 });
 
-// Function to get active plans
-export const getActivePlans = async (userToken) => {
-  return await get({
-    uri: "/api-key-manager/api-keys/active/me",
-    headers: {
-      Authorization: `Bearer ${userToken}`,
-    },
-  });
-};
 
-// Function to get active plans
-export const getAvailableTiers = async () => {
-  return await get({ uri: "/api-key-manager/tiers" });
-};
+export const purchaseApiKey = async (payload, userToken) => {
+  return postJson({
+    uri: '/payment/buy-api-key',
+    body: payload,
+    headers: {
+      Authorization: `Bearer ${userToken}`
+    }
+  })
+}
 
 // Function to post JSON data
 export const postJson = async ({ uri, body, headers }) => {
