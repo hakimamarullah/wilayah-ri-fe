@@ -3,7 +3,7 @@ import styles from "./css/TransactionCard.module.css";
 import { PayButton } from "./PayButton";
 import { formatPrice } from "../lib/common_utils";
 
-export function TransactionCard({ planName, orderId, price, paymentUrl }) {
+export function TransactionCard({ planName, orderId, amount, paymentUrl }) {
   return (
     <div className={styles.card}>
       <div className={styles.leftSide}>
@@ -13,7 +13,7 @@ export function TransactionCard({ planName, orderId, price, paymentUrl }) {
         <div className={styles.orderId}>{orderId}</div>
       </div>
       <div className={styles.rightSide}>
-        <div className={styles.price}>{formatPrice(price)}</div>
+        <div className={styles.price}>{formatPrice(amount)}</div>
         <PayButton url={paymentUrl} />
       </div>
     </div>

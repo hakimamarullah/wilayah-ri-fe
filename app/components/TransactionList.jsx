@@ -1,41 +1,83 @@
-import React from "react";
-import { TransactionCard } from "./TransactionCard";
+"use client";
+import React, { useEffect, useState } from 'react';
+import { Backdrop, CircularProgress } from '@mui/material';
+import AppAlert from './AppAlert';
+import ReportIcon from "@mui/icons-material/Report";
+import { getPendingTransactions } from '../lib/payment_service';
+import { TransactionCard } from './TransactionCard';
 
-const transactions = [
-  {
-    "planName": "Free",
-    "orderId": "4e2f3c1b-5b42-4d1b-b7b8-2d6d6ff5e2a1",
-    "price": 100000000000,
-    "paymentUrl": "https://example.com/payment/9aaf5bbd-9b6d-4f76-b7d7-2e9d6f9f9e6e"
-  },
-  {
-    "planName": "PRO",
-    "orderId": "cfb8d2a0-8b53-4c09-b6b8-1c90db6c781d",
-    "price": 34000000,
-    "paymentUrl": "https://example.com/payment/6fba5d7e-9f1e-4c3f-9d44-2c5d9f7a4d2b"
-  },
-  {
-    "planName": "ENTERPRISE",
-    "orderId": "e1d5a2be-5d40-4b3d-8e9d-0d5ef7db4b25",
-    "price": 2345000,
-    "paymentUrl": "https://example.com/payment/2b99a0c2-5c85-4d53-a60e-2a5b5c7e1d9e"
-  }
-]
+const TransactionList = ({ session }) => {
+  const { user } = session ?? {};
+  const { accessToken } = user ?? {};
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [alert, setAlert] = useState(false);
 
-const TransactionsList = () => {
+  useEffect(() => {
+    let isSubscribed = true;
+    const fetchPendingTransactions = async () => {
+      try {
+        const { responseData, responseCode } = await getPendingTransactions(accessToken);
+        if (responseCode !== 200) {
+          throw new Error('something went wrong');
+        }
+        if (isSubscribed) {
+          setTransactions(responseData);
+        }
+      } catch (error) {
+        if (isSubscribed) {
+          setError(true); // Set error state to true
+          setAlert(true);
+        }
+      } finally {
+        if (isSubscribed) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchPendingTransactions();
+    return () => (isSubscribed = false);
+  }, [accessToken]);
+
   return (
     <div>
-      {transactions.map((transaction) => (
-        <TransactionCard
-          key={transaction.orderId}
-          planName={transaction.planName}
-          orderId={transaction.orderId}
-          price={transaction.price}
-          paymentUrl={transaction.paymentUrl}
+      <Backdrop
+        sx={{ color: "#fff", zIndex: 9999, position: "absolute" }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
+      {error ? (
+        <div>Failed Fetching Data</div>
+      ) : transactions?.length === 0 ? (
+        <div>You Have No Pending Transactions</div>
+      ) : (
+        transactions.map((item, index) => (
+          <TransactionCard
+            key={index}
+            planName={item.tierName}
+            orderId={item.trxId}
+            amount={item.amount}
+            paymentUrl={item.paymentUrl}
+          />
+        ))
+      )}
+
+      {error && (
+        <AppAlert
+          title={"Application Error"}
+          color="danger"
+          message="Something went wrong. Please try again later!"
+          show={alert}
+          handleClose={() => setAlert(false)}
+          icon={<ReportIcon />}
         />
-      ))}
+      )}
     </div>
   );
 };
 
-export default TransactionsList;
+export default TransactionList;

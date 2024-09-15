@@ -32,7 +32,7 @@ export default async function MyPlans() {
       >
         Active Plans
       </Typography>
-      <ApiKeyList session={session}/>
+      {session && <ApiKeyList session={session}/>}
     </Container>
   );
 }
