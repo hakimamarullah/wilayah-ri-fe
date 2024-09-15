@@ -18,7 +18,7 @@ const transactions = [
     "planName": "ENTERPRISE",
     "orderId": "e1d5a2be-5d40-4b3d-8e9d-0d5ef7db4b25",
     "price": 2345000,
-    "paymentUrl": "https://example.com/payment/2b99a0c2-5c85-4d53-a60e-2a5b5c7e1d9e"
+    "paymentUrl": "https://example.com/payment/2b99a0c2-5c85-4d53-a60e-2a5b5c7e1"
   }
 ]
 
