@@ -52,7 +52,7 @@ export default function MenuDrawer({ state, toggleDrawer, username }) {
         <>
           <List>
             {[
-               {
+              {
                 name: "My Plans",
                 icon: <LocalMallOutlinedIcon />,
                 target: "/myplans",
@@ -76,10 +76,16 @@ export default function MenuDrawer({ state, toggleDrawer, username }) {
                 name: "Support",
                 icon: <SupportAgentOutlinedIcon />,
                 target: "https://twitter.com/messages/compose?recipient_id=1025891337638268928",
+                // This is where we open in a new tab
+                newTab: true
               },
             ].map((item) => (
               <ListItem key={item.name} disablePadding>
-                <ListItemButton href={item.target}>
+                <ListItemButton 
+                  href={item.target}
+                  target={item.newTab ? "_blank" : undefined}
+                  rel={item.newTab ? "noopener noreferrer" : undefined}
+                >
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.name} />
                 </ListItemButton>
