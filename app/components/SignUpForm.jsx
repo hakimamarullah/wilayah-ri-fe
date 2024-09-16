@@ -63,7 +63,6 @@ export default function SignUpForm({ session }) {
           break;
       }
     } catch (error) {
-      console.log({ fuck: error?.response?.data });
       setUnexpectedError(true);
     } finally {
       setIsLoading(false);

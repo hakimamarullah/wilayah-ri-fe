@@ -42,7 +42,7 @@ export const postJson = async ({ uri, body, headers }) => {
     });
     return response.data;
   } catch (error) {
-    handleAxiosError(error, doLogout);
+    return handleAxiosError(error, doLogout);
   }
 };
 
@@ -57,7 +57,7 @@ export const get = async ({ uri, headers }) => {
     });
     return response.data;
   } catch (error) {
-    handleAxiosError(error, doLogout);
+    return handleAxiosError(error, doLogout);
   }
 };
 

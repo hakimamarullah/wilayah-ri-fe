@@ -46,6 +46,6 @@ export const postJson = async ({ uri, body, headers }) => {
     });
     return response.data;
   } catch (error) {
-    handleAxiosError(error, doLogout);
+    return handleAxiosError(error, doLogout);
   }
 };
