@@ -1,4 +1,6 @@
 import axios from "axios";
+import { handleAxiosError } from "./common_utils";
+import { doLogout } from "../actions";
 
 // Function to get base URL
 const getApiKeyManagerBaseUrl = () => {
@@ -40,11 +42,7 @@ export const postJson = async ({ uri, body, headers }) => {
     });
     return response.data;
   } catch (error) {
-    const data = error.response?.data;
-    if (data) {
-      return data;
-    }
-    throw error;
+    handleAxiosError(error, doLogout);
   }
 };
 
@@ -59,10 +57,8 @@ export const get = async ({ uri, headers }) => {
     });
     return response.data;
   } catch (error) {
-    const data = error.response?.data;
-    if (data) {
-      return data;
-    }
-    throw error;
+    handleAxiosError(error, doLogout);
   }
 };
+
+

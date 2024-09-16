@@ -69,7 +69,7 @@ const PricePlanList = ({ userToken }) => {
   return (
     <div className={styles.container}>
       <Backdrop
-        sx={{ color: "#fff", zIndex: 9999, position: "absolute" }}
+        sx={{ color: "#fff", zIndex: 9999, position: "absolute", minHeight: "100vh" }}
         open={loading}
       >
         <CircularProgress color="inherit" />

@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { doLogout } from '../actions';
+import { handleAxiosError } from './common_utils';
 
 // Define the base URL function
 const getAuthBaseUrl = () => {
@@ -44,10 +46,6 @@ export const postJson = async ({ uri, body, headers }) => {
     });
     return response.data;
   } catch (error) {
-    const data = error.response?.data;
-    if (data) {
-      return data;
-    }
-    throw error;
+    handleAxiosError(error, doLogout);
   }
 };

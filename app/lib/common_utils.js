@@ -24,3 +24,14 @@ export const formatDate = (dateString) => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).format(date);
 };
+
+export const handleAxiosError = (error, callback) => {
+  const data = error.response?.data;
+  if (data) {
+    if (data.responseCode === 401) {
+      callback("/auth/signin");
+    }
+    return data;
+  }
+  throw error;
+};

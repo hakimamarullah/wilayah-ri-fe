@@ -1,4 +1,6 @@
 import axios from "axios";
+import { doLogout } from "../actions";
+import { handleAxiosError } from "./common_utils";
 
 // Function to get base URL
 const getPaymentServiceBaseUrl = () => {
@@ -14,28 +16,27 @@ const axiosInstance = axios.create({
   },
 });
 
-
 export const purchaseApiKey = async (payload, userToken) => {
   return postJson({
-    uri: '/payment/buy-api-key',
+    uri: "/payment/buy-api-key",
     body: payload,
     headers: {
-      Authorization: `Bearer ${userToken}`
-    }
-  })
-}
+      Authorization: `Bearer ${userToken}`,
+    },
+  });
+};
 
 export const getPendingTransactions = async (userToken) => {
   return await postJson({
-    uri: '/payment/transactions/users/me',
+    uri: "/payment/transactions/users/me",
     body: {
-      paymentStatus: 'PENDING'
+      paymentStatus: "PENDING",
     },
     headers: {
-      Authorization: `Bearer ${userToken}`
-    }
-  })
-}
+      Authorization: `Bearer ${userToken}`,
+    },
+  });
+};
 
 // Function to post JSON data
 export const postJson = async ({ uri, body, headers }) => {
@@ -48,11 +49,7 @@ export const postJson = async ({ uri, body, headers }) => {
     });
     return response.data;
   } catch (error) {
-    const data = error.response?.data;
-    if (data) {
-      return data;
-    }
-    throw error;
+    handleAxiosError(error, doLogout);
   }
 };
 
@@ -67,10 +64,6 @@ export const get = async ({ uri, headers }) => {
     });
     return response.data;
   } catch (error) {
-    const data = error.response?.data;
-    if (data) {
-      return data;
-    }
-    throw error;
+    handleAxiosError(error, doLogout);
   }
 };

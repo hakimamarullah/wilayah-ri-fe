@@ -44,7 +44,7 @@ const ApiKeyCardList = ({ session }) => {
   return (
     <div>
       <Backdrop
-        sx={{ color: "#fff", zIndex: 9999, position: "absolute" }}
+        sx={{ color: "#fff", zIndex: 9999, position: "absolute", minHeight: "100vh" }}
         open={loading}
       >
         <CircularProgress color="inherit" />

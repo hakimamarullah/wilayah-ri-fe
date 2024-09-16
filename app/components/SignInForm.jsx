@@ -83,7 +83,7 @@ export default function SignInForm({ session }) {
       {session ? null : (
         <>
           <Backdrop
-            sx={{ color: "#fff", zIndex: 9999, position: "absolute" }}
+            sx={{ color: "#fff", zIndex: 9999, position: "absolute", minHeight: "100vh" }}
             open={isLoading}
           >
             <CircularProgress color="inherit" />
