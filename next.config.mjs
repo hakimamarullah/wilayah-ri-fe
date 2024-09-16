@@ -3,7 +3,9 @@ const nextConfig = {
   output: "standalone",
   experimental: {
     serverActions: {
-      allowedOrigins: ["localhost:3000", "localhost:9099"]
+      allowedOrigins: process.env.NEXT_PUBLIC_ALLOWED_ORIGINS
+        ? process.env.NEXT_PUBLIC_ALLOWED_ORIGINS.split(',')
+        : []
     }
   }
 };
