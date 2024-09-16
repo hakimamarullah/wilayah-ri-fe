@@ -1,12 +1,12 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import ApiKeyCard from './ApiKeyCard';
-import { getActivePlans } from '../lib/api_key_manager';
-import { Backdrop, CircularProgress } from '@mui/material';
-import AppAlert from './AppAlert';
 import ReportIcon from "@mui/icons-material/Report";
+import { Backdrop, CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
+import { getActivePlans } from "../lib/api_key_manager";
+import ApiKeyCard from "./ApiKeyCard";
+import AppAlert from "./AppAlert";
 
-const ApiKeyList = ({ session }) => {
+const ApiKeyCardList = ({ session }) => {
   const { user } = session ?? {};
   const { accessToken } = user ?? {};
   const [apiKeys, setApiKeys] = useState([]);
@@ -18,7 +18,10 @@ const ApiKeyList = ({ session }) => {
     let isSubscribed = true;
     const fetchApiKeys = async () => {
       try {
-        const { responseData } = await getActivePlans(accessToken);
+        const { responseData, responseCode } = await getActivePlans(accessToken);
+        if (responseCode !== 200) {
+          throw new Error('somehting went wrong');
+        }
         if (isSubscribed) {
           setApiKeys(responseData);
         }
@@ -76,4 +79,4 @@ const ApiKeyList = ({ session }) => {
   );
 };
 
-export default ApiKeyList;
+export default ApiKeyCardList;

@@ -40,7 +40,10 @@ const PricePlanList = ({ userToken }) => {
     let isSubscribed = true;
     const fetchTiers = async () => {
       try {
-        const { responseData } = await getAvailableTiers();
+        const { responseData, responseCode } = await getAvailableTiers();
+        if (responseCode !== 200) {
+          throw new Error('something went wrong');
+        }
         if (isSubscribed) {
           setTiers(responseData);
         }
