@@ -25,7 +25,7 @@ const PricePlanList = ({ userToken }) => {
         color: "success",
       });
       setShowPurchaseMsg(true);
-      router.push("/orders");
+      setTimeout(() => router.push, 2000);
     } else {
       setPurchaseMessage({
         title: "Purchase Failed",
