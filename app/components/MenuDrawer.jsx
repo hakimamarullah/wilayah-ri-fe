@@ -75,7 +75,7 @@ export default function MenuDrawer({ state, toggleDrawer, username }) {
               {
                 name: "Support",
                 icon: <SupportAgentOutlinedIcon />,
-                target: "#",
+                target: "https://twitter.com/messages/compose?recipient_id=1025891337638268928",
               },
             ].map((item) => (
               <ListItem key={item.name} disablePadding>
