@@ -25,7 +25,11 @@ const PricePlanList = ({ userToken }) => {
         color: "success",
       });
       setShowPurchaseMsg(true);
-      setTimeout(() => router.push, 2000);
+
+      // Use setTimeout correctly to execute router.push
+      setTimeout(() => {
+        router.push("/orders");
+      }, 2000); // Delay in milliseconds (e.g., 2000ms = 2 seconds)
     } else {
       setPurchaseMessage({
         title: "Purchase Failed",
@@ -34,7 +38,6 @@ const PricePlanList = ({ userToken }) => {
       });
       setShowPurchaseMsg(true);
     }
-    
   };
   useEffect(() => {
     let isSubscribed = true;
@@ -42,7 +45,7 @@ const PricePlanList = ({ userToken }) => {
       try {
         const { responseData, responseCode } = await getAvailableTiers();
         if (responseCode !== 200) {
-          throw new Error('something went wrong');
+          throw new Error("something went wrong");
         }
         if (isSubscribed) {
           setTiers(responseData);
