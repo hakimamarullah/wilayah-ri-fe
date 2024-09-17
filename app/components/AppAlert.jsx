@@ -31,7 +31,7 @@ const AppAlert = ({
   duration = duration ? duration : 5000;
 
   useEffect(() => {
-    let timer = setTimeout(() => handleClose(false), 5000);
+    let timer = setTimeout(() => handleClose(false), 4000);
 
     return () => clearTimeout(timer);
   }, [show, handleClose]);

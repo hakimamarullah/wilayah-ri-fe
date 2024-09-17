@@ -18,6 +18,16 @@ const axiosInstance = axios.create({
 
 
 
+export const validateResetPassToken = ({ token, username}) => {
+  const requestBody = {
+    token, username
+  }
+  return postJson({
+    uri: 'password/reset/validate',
+    body: requestBody
+  })
+}
+
 // Function to sign up a user
 export const signUp = async (formData) => {
   const requestBody = {
