@@ -16,12 +16,14 @@ import { sendResetPassword } from "../lib/auth_api";
 import { getAlertByHttpCode } from "../lib/common_utils";
 import AppAlert from "./AppAlert";
 import PasswordField from "./PasswordField";
+import { useRouter } from "next/navigation";
 
 const ResetPasswordForm = ({ token }) => {
   const [alert, setAlert] = React.useState({});
   const [fieldErrors, setFieldErrors] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
+  const router = useRouter();
 
   const isPasswordMatch = (password, confirmPassword) =>  password === confirmPassword;
   const handleSubmit = async (event) => {
@@ -61,6 +63,11 @@ const ResetPasswordForm = ({ token }) => {
       }
       
       setShowAlert(true);
+      if (responseCode === 200) {
+        setTimeout(() => {
+          router.push("/auth/signin")
+        }, 1000);
+      }
     } catch (error) {
       setAlert(getAlertByHttpCode(responseCode));
       setIsLoading(false);
