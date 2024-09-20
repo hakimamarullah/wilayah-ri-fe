@@ -2,6 +2,7 @@ import axios from 'axios';
 import { doLogout } from '../actions';
 import { handleAxiosError } from './common_utils';
 
+
 // Define the base URL function
 const getAuthBaseUrl = () => {
   return process.env.NEXT_PUBLIC_AUTH_SERVICE_URL;
@@ -18,13 +19,20 @@ const axiosInstance = axios.create({
 
 
 
-export const validateResetPassToken = ({ token, username}) => {
-  const requestBody = {
-    token, username
-  }
-  return postJson({
-    uri: 'password/reset/validate',
-    body: requestBody
+export const requestResetPassword = async (email) => {
+  return await get({ uri: `/password-manager/reset/${email}`});
+}
+
+export const validateResetPassToken = async ({ token }) => {
+ return await get({
+  uri: `/password-manager/token/${token}/validate`
+ })
+}
+
+export const sendResetPassword = async (payload) => {
+  return await postJson({
+    uri: '/password-manager/reset',
+    body: payload
   })
 }
 
@@ -51,6 +59,21 @@ export const postJson = async ({ uri, body, headers }) => {
     const response = await axiosInstance.post(uri, body, {
       headers: {
         "Content-Type": "application/json",
+        ...headers,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    return handleAxiosError(error, doLogout);
+  }
+};
+
+// Function to get data
+export const get = async ({ uri, headers }) => {
+  try {
+    const response = await axiosInstance.get(uri, {
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
         ...headers,
       },
     });

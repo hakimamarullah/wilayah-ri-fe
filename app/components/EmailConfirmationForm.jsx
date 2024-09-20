@@ -8,58 +8,32 @@ import {
   CircularProgress,
   Container,
   CssBaseline,
+  TextField,
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import { sendResetPassword } from "../lib/auth_api";
+import { requestResetPassword } from "../lib/auth_api";
 import { getAlertByHttpCode } from "../lib/common_utils";
 import AppAlert from "./AppAlert";
-import PasswordField from "./PasswordField";
 
-const ResetPasswordForm = ({ token }) => {
+const EmailConfirmationForm = () => {
   const [alert, setAlert] = React.useState({});
-  const [fieldErrors, setFieldErrors] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
 
-  const isPasswordMatch = (password, confirmPassword) =>  password === confirmPassword;
   const handleSubmit = async (event) => {
     event.preventDefault();
     setAlert({});
-    setFieldErrors({});
 
     let responseCode;
     try {
       setIsLoading(true);
       const formData = new FormData(event.currentTarget);
-
- 
-      if (!isPasswordMatch(formData.get("password"), formData.get("confirm_password"))) {
-        setFieldErrors({ newPassword: 'Password does not match' });
-        return;
-      }
-      const payload = {
-        token,
-        newPassword: formData.get("password")
-      }
-      const response = await sendResetPassword(payload);
+      const response = await requestResetPassword(formData.get("email"));
 
       responseCode = response.responseCode;
-      if (responseCode === 400 && response.responseData !== 'xx') {
-        setFieldErrors(response.responseData);
-        setAlert(getAlertByHttpCode(responseCode));
-      } else if (responseCode === 400) {
-        setAlert({
-          title: 'Warning',
-          message: 'Reset Token No Longer Valid. Please request again!',
-          color: 'warning'
-        })
-        
-      } else {
-        setAlert(getAlertByHttpCode(responseCode));
-      }
-      
+      setAlert(getAlertByHttpCode(responseCode));
       setShowAlert(true);
     } catch (error) {
       setAlert(getAlertByHttpCode(responseCode));
@@ -69,7 +43,6 @@ const ResetPasswordForm = ({ token }) => {
       setIsLoading(false);
     }
   };
-
   return (
     <Container maxWidth="xs">
       <>
@@ -113,20 +86,19 @@ const ResetPasswordForm = ({ token }) => {
             sx={{ mt: 1 }}
             autoComplete="off"
           >
-            <PasswordField
-              id="password"
-              name="password"
-              label="Password"
-              error={!!fieldErrors.newPassword}
-              helperText={fieldErrors.newPassword ? fieldErrors.newPassword : ""}
-            />
-
-            <PasswordField
-              id="confirm_password"
-              name="confirm_password"
-              label="Confirm Password"
-              error={!!fieldErrors.newPassword}
-              helperText={fieldErrors.newPassword ? fieldErrors.newPassword : ""}
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              type="email"
+              name="email"
+              error={!!alert.email}
+              helperText={alert.email ? alert.email : ""}
+              autoFocus
+              autoComplete="on"
+              inputProps={{ autoComplete: "on" }}
             />
 
             <Button
@@ -140,7 +112,7 @@ const ResetPasswordForm = ({ token }) => {
                 ":hover": { bgcolor: "#a67c37" },
               }}
             >
-              Reset
+              Send Email
             </Button>
           </Box>
         </Box>
@@ -149,4 +121,4 @@ const ResetPasswordForm = ({ token }) => {
   );
 };
 
-export default ResetPasswordForm;
+export default EmailConfirmationForm;

@@ -2,7 +2,12 @@
 import { HomeOutlined } from "@mui/icons-material";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import ReportIcon from "@mui/icons-material/Report";
-import { Backdrop, CircularProgress, IconButton, TextField } from "@mui/material";
+import {
+  Backdrop,
+  CircularProgress,
+  IconButton,
+  TextField,
+} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -83,7 +88,12 @@ export default function SignInForm({ session }) {
       {session ? null : (
         <>
           <Backdrop
-            sx={{ color: "#fff", zIndex: 9999, position: "absolute", minHeight: "100vh" }}
+            sx={{
+              color: "#fff",
+              zIndex: 9999,
+              position: "absolute",
+              minHeight: "100vh",
+            }}
             open={isLoading}
           >
             <CircularProgress color="inherit" />
@@ -148,6 +158,11 @@ export default function SignInForm({ session }) {
                 error={!!errors.password}
                 helperText={errors.password ? errors.password : ""}
               />
+              <Grid item alignItems="center">
+                <Link href="/password/email-confirmation" variant="body2">
+                  {"Forgot Password"}
+                </Link>
+              </Grid>
 
               <Button
                 type="submit"
