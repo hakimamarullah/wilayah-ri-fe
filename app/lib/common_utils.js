@@ -9,7 +9,6 @@ export const formatPrice = (price) => {
   return formattedPrice.replace(/\s/g, "");
 };
 
-
 export const formatSimNumber = (simNumber) => {
   return simNumber.replace(/(\d{4})(?=\d)/g, "$1-");
 };
@@ -22,7 +21,11 @@ export const formatAddress = (address) => {
 
 export const formatDate = (dateString) => {
   const date = new Date(dateString);
-  return new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).format(date);
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(date);
 };
 
 export const handleAxiosError = (error, callback) => {
@@ -34,4 +37,28 @@ export const handleAxiosError = (error, callback) => {
     return data;
   }
   throw error;
+};
+
+export const getAlertByHttpCode = (httpCode) => {
+  if (httpCode <= 200) {
+    return {
+      title: "Success",
+      color: "success",
+      message: "Operation Successful",
+    };
+  } else if (httpCode >= 400) {
+    return {
+      title: "Warning",
+      color: "warning",
+      message:
+        httpCode === 404
+          ? "Data Not Found"
+          : "Please make sure all the data is valid",
+    };
+  }
+  return {
+    title: "Application Error",
+    color: "danger",
+    message: "Something went wrong",
+  };
 };
