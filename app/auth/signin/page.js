@@ -9,7 +9,13 @@ const SignInPage = async () => {
   const session = await auth();
   
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh',
+      pb: '5%'
+    }}>
       <SignInForm session={session}/>
     </Container>
   );

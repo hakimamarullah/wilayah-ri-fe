@@ -75,7 +75,7 @@ export default function SignUpForm({ session }) {
   };
 
   return (
-    <Container component="main" maxWidth="xs" sx={{ overflow: "hidden" }}>
+    <Container maxWidth="xs">
       {session ? null : (
         <>
           {" "}
