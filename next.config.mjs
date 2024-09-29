@@ -7,6 +7,9 @@ const nextConfig = {
         ? process.env.NEXT_PUBLIC_ALLOWED_ORIGINS.split(',')
         : []
     }
+  },
+  env: {
+    AUTH_SERVICE_SERVER: process.env.NEXT_PUBLIC_AUTH_SERVICE_SERVER
   }
 };
 

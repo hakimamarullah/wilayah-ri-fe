@@ -8,9 +8,23 @@ const getAuthBaseUrl = () => {
   return process.env.NEXT_PUBLIC_AUTH_SERVICE_URL;
 };
 
+const getAuthServiceBaseUrl = () => {
+  return process.env.NEXT_PUBLIC_AUTH_SERVICE_SERVER;
+}
+
 // Create an axios instance with default settings
 const axiosInstance = axios.create({
   baseURL: getAuthBaseUrl(),  // Use the getBaseUrl function for base URL
+  timeout: 5000,         // Timeout in milliseconds (10 seconds)
+  headers: {
+    "ngrok-skip-browser-warning": "69420"
+  }
+});
+
+
+// Create an axios instance with default settings
+const axiosInstanceServer = axios.create({
+  baseURL: getAuthServiceBaseUrl(),  // Use the getBaseUrl function for base URL
   timeout: 5000,         // Timeout in milliseconds (10 seconds)
   headers: {
     "ngrok-skip-browser-warning": "69420"
@@ -25,6 +39,7 @@ export const requestResetPassword = async (email) => {
 
 export const validateResetPassToken = async ({ token }) => {
  return await get({
+  useServer: true,
   uri: `/password-manager/token/${token}/validate`
  })
 }
@@ -69,9 +84,13 @@ export const postJson = async ({ uri, body, headers }) => {
 };
 
 // Function to get data
-export const get = async ({ uri, headers }) => {
+export const get = async ({ useServer, uri, headers }) => {
   try {
-    const response = await axiosInstance.get(uri, {
+    let client = axiosInstance;
+    if (useServer) {
+      client = axiosInstanceServer
+    }
+    const response = await client.get(uri, {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         ...headers,
