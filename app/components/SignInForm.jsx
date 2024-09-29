@@ -81,9 +81,7 @@ export default function SignInForm({ session }) {
 
   return (
     <Container
-      component="main"
       maxWidth="xs"
-      sx={{ overflow: "hidden", mb: "100vh" }}
     >
       {session ? null : (
         <>
